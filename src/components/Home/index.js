@@ -14,10 +14,35 @@ import {
   MiniDiv,
   Div3,
   Button,
+  TextArea,
 } from './styled'
 
 class Home extends Component {
+  state = {
+    bold: false,
+    italic: false,
+    underline: false,
+    text: '',
+  }
+
+  onClickBold = () => {
+    this.setState(prev => ({bold: !prev.bold}))
+  }
+
+  onClickItalic = () => {
+    this.setState(prev => ({italic: !prev.italic}))
+  }
+
+  onClickUnderline = () => {
+    this.setState(prev => ({underline: !prev.underline}))
+  }
+
+  onChangeText = event => {
+    this.setState({text: event.target.value})
+  }
+
   render() {
+    const {bold, italic, underline, text} = this.state
     return (
       <Main>
         <Body>
@@ -31,16 +56,39 @@ class Home extends Component {
           <Div2>
             <MiniDiv>
               <Div3>
-                <Button type="button">
-                  <VscBold />
+                <Button
+                  data-testid="bold"
+                  show={bold}
+                  onClick={this.onClickBold}
+                  type="button"
+                >
+                  <VscBold size={25} />
                 </Button>
-                <Button type="button">
-                  <GoItalic />
+                <Button
+                  data-testid="italic"
+                  show={italic}
+                  onClick={this.onClickItalic}
+                  type="button"
+                >
+                  <GoItalic size={25} />
                 </Button>
-                <Button type="button">
-                  <AiOutlineUnderline />
+                <Button
+                  data-testid="underline"
+                  show={underline}
+                  onClick={this.onClickUnderline}
+                  type="button"
+                >
+                  <AiOutlineUnderline size={25} />
                 </Button>
               </Div3>
+              <hr />
+              <TextArea
+                onChange={this.onChangeText}
+                value={text}
+                showBold={bold}
+                showItalic={italic}
+                showUnderline={underline}
+              />
             </MiniDiv>
           </Div2>
         </Body>
